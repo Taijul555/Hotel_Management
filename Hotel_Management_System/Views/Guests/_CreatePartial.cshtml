@@ -1,0 +1,90 @@
+﻿@model Hotel_Management_System.ViewModels.GuestViewModel
+
+<input type="hidden" id="server-task" value="@ViewBag.Act" />
+
+<div class="form-group row mb-1">
+    @Html.LabelFor(x => x.Guest_Name, new { @class = "col-form-label col-form-label-sm col-2" })
+    <div class="col-6">
+        @Html.TextBoxFor(x => x.Guest_Name, new { @class = "form-control form-control-sm" })
+        @Html.ValidationMessageFor(x => x.Guest_Name, "", new { @class = "text-danger", style = "font-size:x-small" })
+    </div>
+</div>
+<div class="form-group row mb-1">
+    @Html.LabelFor(x => x.Contact_Number, new { @class = "col-form-label col-form-label-sm col-2" })
+    <div class="col-6">
+        @Html.TextBoxFor(x => x.Contact_Number, new { @class = "form-control form-control-sm" })
+        @Html.ValidationMessageFor(x => x.Contact_Number, "", new { @class = "text-danger", style = "font-size:x-small" })
+    </div>
+</div>
+<div class="form-group row mb-1">
+    @Html.LabelFor(x => x.Picture, new { @class = "col-form-label col-form-label-sm col-2" })
+    <div class="col-6">
+        @Html.TextBoxFor(x => x.Picture, new { @class = "form-control form-control-sm", type = "file" })
+        @Html.ValidationMessageFor(x => x.Picture, "", new { @class = "text-danger", style = "font-size:x-small" })
+    </div>
+</div>
+<div class="form-group row mb-1">
+    @Html.LabelFor(x => x.City, new { @class = "col-form-label col-form-label-sm col-2" })
+    <div class="col-6">
+        @Html.TextBoxFor(x => x.City, new { @class = "form-control form-control-sm" })
+        @Html.ValidationMessageFor(x => x.City, "", new { @class = "text-danger", style = "font-size:x-small" })
+    </div>
+</div>
+<div class="form-group row mb-1">
+    @Html.LabelFor(x => x.Address, new { @class = "col-form-label col-form-label-sm col-2" })
+    <div class="col-6">
+        @Html.TextBoxFor(x => x.Address, new { @class = "form-control form-control-sm" })
+        @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger", style = "font-size:x-small" })
+    </div>
+</div>
+<div class="col-12">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Check In Date</th>
+                <th>Check Out Date</th>
+                <td>Type of Roome</td>
+                <th>Room Number</th>
+                <th>IsCalcelled</th>
+                <th>
+                    <button type="submit" class="btn btn-secondary btn-sm add" name="act" value="add" formnovalidate><i class="bi bi-plus"></i></button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Reservations.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBoxFor(x => Model.Reservations[i].Check_in_Date, new { @class = "form-control cd", type="date" })
+                        @Html.ValidationMessageFor(x => Model.Reservations[i].Check_in_Date, "", new { @class = "text-danger" })
+
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.Reservations[i].Check_out_Date, new { @class = "form-control od", type = "date" })
+                        @Html.ValidationMessageFor(x => Model.Reservations[i].Check_out_Date, "", new { @class = "text-danger" })
+                    </td>
+                    <td>
+                        @Html.EnumDropDownListFor(x => Model.Reservations[i].Room_Type, new { @class = "form-select" })
+                        @Html.ValidationMessageFor(x => Model.Reservations[i].Room_Type, "", new { @class = "text-danger" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.Reservations[i].Room_Number, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => Model.Reservations[i].Room_Number, "", new { @class = "text-danger" })
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(x => Model.Reservations[i].IsCancelled, new { @class = "form-check" })
+                        @Html.ValidationMessageFor(x => Model.Reservations[i].IsCancelled, "", new { @class = "text-danger" })
+                    </td>
+
+                    <th>
+                        <button type="submit" class="btn btn-secondary btn-sm" name="act" value="remove_@i" formnovalidate><i class="bi bi-trash"></i></button>
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
